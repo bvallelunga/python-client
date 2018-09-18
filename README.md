@@ -64,10 +64,10 @@ For example:
 
 ``` js
 // Local Enviroment
-process.env.MAGICAL_KEY="123"
+os.environ["MAGICAL_KEY"] = "123"
 
 // Doppler
-MAGICAL_KEY="456"
+MAGICAL_KEY = "456"
 
 
 // Default Behavior

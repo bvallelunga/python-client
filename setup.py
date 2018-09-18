@@ -10,14 +10,15 @@ def read(fname):
 
 setup(
   name = "doppler-client",
-  version = "0.0.1",
+  version = "0.0.3",
   author = "Doppler Team",
-  author_email = "brian@doppler.market",
+  author_email = "support@doppler.market",
   description = "Official Doppler client for Python",
   license = "Apache License 2.0",
   long_description=read('README.md'),
+  long_description_content_type='text/markdown',
   keywords = "doppler environment management api key keys secrets",
-  url = "https://doppler.market",
+  url = "https://github.com/DopplerMarket/python-client",
   packages=find_packages(exclude=["tests", "templates", "experiments"]),
   install_requires=[
     "requests",
