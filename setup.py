@@ -24,7 +24,6 @@ setup(
     "requests-futures"
   ],
   classifiers=[
-    "Development Status :: 2 - Alpha",
     "Topic :: Utilities",
     "License :: Apache License 2.0"
   ],
