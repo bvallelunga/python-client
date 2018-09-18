@@ -24,8 +24,9 @@ setup(
     "requests-futures"
   ],
   classifiers=[
+    "Development Status :: 3 - Alpha",
     "Topic :: Utilities",
-    "License :: Apache License 2.0"
+    "License :: OSI Approved :: Apache Software License"
   ],
   project_urls={
     'Bug Reports': 'https://github.com/DopplerMarket/python-client/issues',
