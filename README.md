@@ -1,7 +1,7 @@
 # Doppler Python Library
 
 [![image](https://img.shields.io/pypi/v/doppler-client.svg)](https://pypi.org/project/doppler-client)
-[![image](https://img.shields.io/npm/dm/doppler-client.svg)](https://pypi.org/project/doppler-client)
+[![image](https://img.shields.io/pypi/dm/doppler-client.svg)](https://pypi.org/project/doppler-client)
 
 The Doppler Python library provides convenient access to the Doppler API from
 applications written for **only** server-side JavaScript.
