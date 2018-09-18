@@ -9,7 +9,7 @@ doppler = Doppler(
   api_key = API_KEY, 
   pipeline = PIPELINE, 
   environment = ENVIRONMENT,
-  defaultPriority = Doppler.DefaultPriority.Remote
+  priority = Doppler.Priority.Remote
 )
 
 print(doppler.get("TEST_123"))

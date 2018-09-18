@@ -7,7 +7,7 @@ from enum import Enum
 
 class Doppler:
   
-  class DefaultPriority(Enum):
+  class Priority(Enum):
     Local = 1
     Remote = 2 
   
@@ -16,7 +16,7 @@ class Doppler:
   remote_keys = {}
   
   
-  def __init__(self, api_key, pipeline, environment, defaultPriority=DefaultPriority.Remote):
+  def __init__(self, api_key, pipeline, environment, priority=Priority.Remote):
     if api_key is None:
       raise ValueError("Please provide an 'api_key' on initialization.")
       
@@ -29,7 +29,7 @@ class Doppler:
     self.api_key = str(api_key)
     self.pipeline = str(pipeline)
     self.environment = str(environment)
-    self.defaultPriority = defaultPriority or DefaultPriority.Remote
+    self.defaultPriority = priority or Priority.Remote
     self.startup()
   
   
@@ -48,7 +48,7 @@ class Doppler:
       priority = priority or self.defaultPriority
       
       if key_name in self.remote_keys:
-        if priority == Doppler.DefaultPriority.Local:
+        if priority == Doppler.Priority.Local:
           return os.getenv(key_name, self.remote_keys[key_name])
           
         return self.remote_keys[key_name]
