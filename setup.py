@@ -10,7 +10,7 @@ def read(fname):
 
 setup(
   name = "doppler-client",
-  version = "0.0.3",
+  version = "0.0.4",
   author = "Doppler Team",
   author_email = "support@doppler.market",
   description = "Official Doppler client for Python",
@@ -18,7 +18,7 @@ setup(
   long_description=read('README.md'),
   long_description_content_type='text/markdown',
   keywords = "doppler environment management api key keys secrets",
-  url = "https://github.com/DopplerMarket/python-client",
+  url = "https://github.com/DopplerHQ/python-client",
   packages=find_packages(exclude=["tests", "templates", "experiments"]),
   install_requires=[
     "requests",
@@ -30,7 +30,7 @@ setup(
     "License :: OSI Approved :: Apache Software License"
   ],
   project_urls={
-    'Bug Reports': 'https://github.com/DopplerMarket/python-client/issues',
-    'Source': 'https://github.com/DopplerMarket/python-client',
+    'Bug Reports': 'https://github.com/DopplerHQ/python-client/issues',
+    'Source': 'https://github.com/DopplerHQ/python-client',
   },
 )
