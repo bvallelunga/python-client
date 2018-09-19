@@ -27,7 +27,7 @@ doppler = Doppler({
   environment: os.getenv("ENVIRONMENT_NAME")
 })
 
-// Rest of Your Application
+# Rest of Application
 ```
 
 
