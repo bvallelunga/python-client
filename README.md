@@ -58,23 +58,23 @@ const config = {
 ```
 
 
-If there are differences between the values your local environment sets and the ones on Doppler, the client will use the ones provided by Doppler. You can override this behavior by passing in a second argument to the `get(key_name, priority)` method that sets the priority to favor your local enviroment.
+If there are differences between the values your local environment sets and the ones on Doppler, the client will use the ones provided by Doppler. You can override this behavior by passing in a second argument to the `get(key_name, priority)` method that sets the priority to favor your local environment.
 
 For example:
 
 ``` js
-// Local Enviroment
+# Local Enviroment
 os.environ["MAGICAL_KEY"] = "123"
 
-// Doppler
+# Doppler
 MAGICAL_KEY = "456"
 
 
-// Default Behavior
-doppler.get("MAGICAL_KEY") // => "456"
+# Default Behavior
+doppler.get("MAGICAL_KEY") # => "456"
 
-// Override to Local
-doppler.get("MAGICAL_KEY", Doppler.Priority.Local) // => "123"
+# Override to Local
+doppler.get("MAGICAL_KEY", Doppler.Priority.Local) # => "123"
 ```
 
 You can also set the priority globally on initialization:
