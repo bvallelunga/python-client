@@ -9,7 +9,7 @@ applications written for **only** server-side JavaScript.
 ## Installation
 
 Install the package with:
-``` js
+``` bash
 pip install -U doppler-client
 ```
 
@@ -17,15 +17,15 @@ pip install -U doppler-client
 
 The package needs to be configured with your account's api key which is available in your [Doppler account](https://doppler.market/workplace/api_key), pipeline identifier and the environment name:
 
-``` js
+``` python
 from doppler_client import Doppler
 import os
 
-doppler = Doppler({
-  api_key: os.getenv("API_KEY"),
-  pipeline: os.getenv("PIPELINE_ID"),
-  environment: os.getenv("ENVIRONMENT_NAME")
-})
+doppler = Doppler(
+  api_key = os.getenv("API_KEY"),
+  pipeline = os.getenv("PIPELINE_ID"),
+  environment = os.getenv("ENVIRONMENT_NAME")
+)
 
 # Rest of Application
 ```
@@ -43,13 +43,13 @@ in local environment. That means the only keys you should be storing in your loc
 
 You can fetch your environment keys from Doppler by calling the `get(name)` method.
 
-``` js
+``` python
 doppler.get(KEY_NAME)
 ```
 
 Here is an example:
 
-``` js
+``` python
 const config = {
   segment_key: doppler.get("SEGMENT_API_KEY"),
   algolia_key: doppler.get("ALGOLIA_API_KEY")
@@ -62,7 +62,7 @@ If there are differences between the values your local environment sets and the 
 
 For example:
 
-``` js
+``` python
 # Local Enviroment
 os.environ["MAGICAL_KEY"] = "123"
 
@@ -79,13 +79,13 @@ doppler.get("MAGICAL_KEY", Doppler.Priority.Local) # => "123"
 
 You can also set the priority globally on initialization:
 
-``` js
-const doppler = new Doppler({
-  api_key: process.env.API_KEY,
-  pipeline: process.env.PIPELINE_ID,
-  environment: process.env.ENVIRONMENT_NAME,
-  priority: Doppler.Priority.Local
-})
+``` python
+const doppler = Doppler(
+  api_key = os.getenv("API_KEY"),
+  pipeline = os.getenv("PIPELINE_ID"),
+  environment = os.getenv("ENVIRONMENT_NAME"),
+  priority = Doppler.Priority.Local
+)
 
 ```
 
