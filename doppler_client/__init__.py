@@ -55,18 +55,18 @@ class Doppler:
         
       self._request("/missing_key", {
         "key_name": key_name
-      }, async=True)
+      }, isAsync=True)
       
       return os.getenv(key_name)
     
   
     
-  def _request(self, endpoint, body, retry_count=0, async=False):
+  def _request(self, endpoint, body, retry_count=0, isAsync=False):
     try:
       endpoint = self.host + "/environments/" + self.environment + endpoint
       requester = requests
       
-      if async:
+      if isAsync:
         requester = FuturesSession()
       
       response = requester.post(endpoint, json=body, headers={
@@ -74,7 +74,7 @@ class Doppler:
         "pipeline": self.pipeline
       }, timeout=1500)
       
-      if not response or async: return None
+      if response is None or isAsync: return None
       
       response = response.json()
       
