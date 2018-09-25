@@ -50,7 +50,7 @@ doppler.get(KEY_NAME)
 Here is an example:
 
 ``` python
-const config = {
+config = {
   segment_key: doppler.get("SEGMENT_API_KEY"),
   algolia_key: doppler.get("ALGOLIA_API_KEY")
 }
@@ -80,7 +80,7 @@ doppler.get("MAGICAL_KEY", Doppler.Priority.Local) # => "123"
 You can also set the priority globally on initialization:
 
 ``` python
-const doppler = Doppler(
+doppler = Doppler(
   api_key = os.getenv("API_KEY"),
   pipeline = os.getenv("PIPELINE_ID"),
   environment = os.getenv("ENVIRONMENT_NAME"),
