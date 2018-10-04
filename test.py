@@ -1,9 +1,11 @@
 from doppler_client import Doppler
 import os
 
-API_KEY = os.getenv("DOPPLER_API_KEY", "REPLACE_ME")
-PIPELINE = os.getenv("DOPPLER_PIPELINE_ID", "REPLACE_ME")
-ENVIRONMENT = os.getenv("DOPPLER_ENVIRONMENT", "development_primary")
+os.environ["TESTER"] = "789"
+
+API_KEY = os.getenv("DOPPLER_API_KEY", "RbZ7vIrfbOkZF6hDMKDDdhVoYA0AzBqL8An9OAOL")
+PIPELINE = os.getenv("DOPPLER_PIPELINE_ID", "31")
+ENVIRONMENT = os.getenv("DOPPLER_ENVIRONMENT", "development_python")
 
 doppler = Doppler(
   api_key = API_KEY, 
@@ -12,4 +14,5 @@ doppler = Doppler(
   priority = Doppler.Priority.Remote
 )
 
-print(doppler.get("TEST_123"))
+print(doppler.get("abc"))
+print(doppler.get("TESTER"))
