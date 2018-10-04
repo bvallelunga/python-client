@@ -106,7 +106,7 @@ To ensure all your local keys are not sent to Doppler, set the `send_local_keys`
 ``` python
 doppler = Doppler(
   # ...
-  send_local_keys = false  # DEFAUTLS => True
+  send_local_keys = False  # DEFAUTLS => True
 )
 ```
 
