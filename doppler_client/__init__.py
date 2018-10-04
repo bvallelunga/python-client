@@ -3,7 +3,11 @@ from requests_futures.sessions import FuturesSession
 import json
 import os
 from enum import Enum
-from sets import Set
+
+try:
+  set
+except NameError:
+  from sets import Set as set
 
 
 class Doppler:
@@ -32,8 +36,7 @@ class Doppler:
     self.environment = str(environment)
     self.defaultPriority = priority or Priority.Remote
     self.send_local_keys = send_local_keys
-    self.ignore_keys = ignore_keys
-    self._set_ignore_keys = None
+    self.ignore_keys = set(ignore_keys)
     self.startup()
   
   
@@ -41,17 +44,14 @@ class Doppler:
   def startup(self):
     keys_to_send = {}
     local_keys = os.environ.copy()
-    self._set_ignore_keys = Set(self.ignore_keys)
     
     if self.send_local_keys:   
       for key in local_keys:
         value = local_keys[key]
         
-        if key not in self._set_ignore_keys:
+        if key not in self.ignore_keys:
           keys_to_send[key] = value
     
-    
-    print(keys_to_send)
     response = self._request("/fetch_keys", {
       "local_keys": keys_to_send
     })
@@ -70,7 +70,7 @@ class Doppler:
           
         return self.remote_keys[key_name]
       
-      if key_name not in self._set_ignore_keys:
+      if key_name not in self.ignore_keys:
         self._request("/missing_key", {
           "key_name": key_name
         }, isAsync=True)
