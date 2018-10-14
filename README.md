@@ -21,11 +21,11 @@ The package needs to be configured with your account's api key which is availabl
 from doppler_client import Doppler
 import os
 
-doppler = Doppler(
-  api_key = os.getenv("API_KEY"),
-  pipeline = os.getenv("PIPELINE_ID"),
-  environment = os.getenv("ENVIRONMENT_NAME")
-)
+doppler = Doppler({
+  "api_key": os.getenv("API_KEY"),
+  "pipeline": os.getenv("PIPELINE_ID"),
+  "environment": os.getenv("ENVIRONMENT_NAME")
+})
 
 # Rest of Application
 ```
@@ -80,12 +80,12 @@ doppler.get("MAGICAL_KEY", Doppler.Priority.Local) # => "123"
 You can also set the priority globally on initialization:
 
 ``` python
-doppler = Doppler(
-  api_key = os.getenv("API_KEY"),
-  pipeline = os.getenv("PIPELINE_ID"),
-  environment = os.getenv("ENVIRONMENT_NAME"),
-  priority = Doppler.Priority.Local
-)
+doppler = Doppler({
+  "api_key": os.getenv("API_KEY"),
+  "pipeline": os.getenv("PIPELINE_ID"),
+  "environment": os.getenv("ENVIRONMENT_NAME"),
+  "priority": Doppler.Priority.Local
+})
 
 ```
 
@@ -104,10 +104,12 @@ If you would like the Doppler client to not send your keys we provide 2 ways to 
 To ensure all your local keys are not sent to Doppler, set the `send_local_keys` attribute to `false`.
 
 ``` python
-doppler = Doppler(
-  # ...
-  send_local_keys = False  # DEFAUTLS => True
-)
+doppler = Doppler({
+  "api_key": os.getenv("API_KEY"),
+  "pipeline": os.getenv("PIPELINE_ID"),
+  "environment": os.getenv("ENVIRONMENT_NAME"),
+  "send_local_keys": False  # DEFAUTLS => True
+})
 ```
 
 
@@ -115,14 +117,51 @@ doppler = Doppler(
 You can also ignore specific local keys by adding them to the `ignore_keys` array.
 
 ``` python
-doppler = Doppler(
-  # ...
-  ignore_keys: [
+doppler = Doppler({
+  "api_key": os.getenv("API_KEY"),
+  "pipeline": os.getenv("PIPELINE_ID"),
+  "environment": os.getenv("ENVIRONMENT_NAME"),
+  "ignore_keys": [
     "SUPER_SECRET_KEY"
   ]
-)
+})
 ```
 
+
+## Overriding Local Keys
+
+The Doppler client by default will not override your local environment keys because it
+can create unknown side effects if the developer didn't take this into account. But 
+if you would like Doppler to override your local environment keys, you can do it for 
+all variables on Doppler or just the ones you specify.
+
+### Globally
+To have all your local keys  overridden by Doppler's remote keys, set the `override_local_keys` attribute to `true`.
+
+``` python
+doppler = Doppler({
+  "api_key": os.getenv("API_KEY"),
+  "pipeline": os.getenv("PIPELINE_ID"),
+  "environment": os.getenv("ENVIRONMENT_NAME"),
+  "override_local_keys": True # DEFAUTLS => False
+})
+```
+
+
+### Individual Key
+You can also override specific local keys by setting `override_local_keys` to be an array of keys.
+
+``` python
+doppler = Doppler({
+  "api_key": os.getenv("API_KEY"),
+  "pipeline": os.getenv("PIPELINE_ID"),
+  "environment": os.getenv("ENVIRONMENT_NAME"),
+  "override_local_keys": [
+    "PORT",
+    "SPECIAL_KEY"
+  ]
+})
+```
 
 
 ## Extra Information
