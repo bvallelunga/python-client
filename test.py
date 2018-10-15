@@ -3,7 +3,7 @@ import os
 
 os.environ["TESTER"] = "123"
 
-API_KEY = os.getenv("DOPPLER_API_KEY", "RbZ7vIrfbOkZF6hDMKDDdhVoYA0AzBqL8An9OAOL")
+API_KEY = os.getenv("DOPPLER_API_KEY", "vSNdjLhatIkD8w6F1W0IEDvKfflbTUkRh8AvghaA")
 PIPELINE = os.getenv("DOPPLER_PIPELINE_ID", "31")
 ENVIRONMENT = os.getenv("DOPPLER_ENVIRONMENT", "development_python")
 
