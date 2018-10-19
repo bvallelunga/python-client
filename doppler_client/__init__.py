@@ -36,7 +36,7 @@ class Doppler:
     self.pipeline = str(data.get("pipeline"))
     self.environment = str(data.get("environment"))
     self.defaultPriority = data.get("priority", Doppler.Priority.Remote)
-    self.send_local_keys = data.get("send_local_keys", True)
+    self.track_keys = set(data.get("track_keys", []))
     self.ignore_keys = set(data.get("ignore_keys", []))
     self.override_local_keys = data.get("override_local_keys", False)
     self.startup()
@@ -44,18 +44,16 @@ class Doppler:
   
   
   def startup(self):
-    keys_to_send = {}
-    local_keys = os.environ.copy()
-    
-    if self.send_local_keys:   
-      for key in local_keys:
-        value = local_keys[key]
-        
-        if key not in self.ignore_keys:
-          keys_to_send[key] = value
+    local_keys = {}
+      
+    for key in os.environ:
+      value = os.environ[key]
+      
+      if key in self.track_keys:
+        local_keys[key] = value
     
     response = self._request("/fetch_keys", {
-      "local_keys": keys_to_send
+      "local_keys": local_keys
     })
     
     if response:
@@ -66,20 +64,31 @@ class Doppler:
       
   def get(self, key_name, priority=None):
       priority = priority or self.defaultPriority
+      value = None
       
-      if key_name in self.remote_keys:
-        if priority == Doppler.Priority.Local:
-          return os.getenv(key_name, self.remote_keys.get(key_name))
-          
-        return self.remote_keys[key_name]
+      if priority == Doppler.Priority.Local:
+        value = os.getenv(key_name, self.remote_keys.get(key_name))
+      else: 
+        value = self.remote_keys.get(key_name, os.getenv(key_name))
       
       if key_name not in self.ignore_keys:
-        self._request("/missing_key", {
-          "key_name": key_name
-        }, isAsync=True)
+        if value is not None:
+          if self.remote_keys.get(key_name) != os.getenv(key_name):
+            local_keys = {}
+            local_keys[key_name] = os.getenv(key_name)
+          
+            self._request("/track_key", {
+              "local_keys": local_keys
+            }, isAsync=True)
+      
+        else:
+          self._request("/missing_key", {
+            "key_name": key_name
+          }, isAsync=True)
       
       return os.getenv(key_name)
-    
+  
+  
   
   def override_keys(self):
     if self.override_local_keys == False: return

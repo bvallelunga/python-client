@@ -1,7 +1,7 @@
 from doppler_client import Doppler
 import os
 
-os.environ["TESTER"] = "123"
+os.environ["TESTER"] = "456"
 
 API_KEY = os.getenv("DOPPLER_API_KEY", "vSNdjLhatIkD8w6F1W0IEDvKfflbTUkRh8AvghaA")
 PIPELINE = os.getenv("DOPPLER_PIPELINE_ID", "31")
@@ -11,10 +11,8 @@ doppler = Doppler({
   "api_key": API_KEY, 
   "pipeline": PIPELINE, 
   "environment": ENVIRONMENT,
-  "priority": Doppler.Priority.Remote,
-  "override_local_keys": ["TESTER"]
+  "priority": Doppler.Priority.Remote
 })
 
-print(os.environ["TESTER"])
 print(doppler.get("abc"))
 print(doppler.get("TESTER"))
