@@ -86,7 +86,7 @@ class Doppler:
             "key_name": key_name
           }, isAsync=True)
       
-      return os.getenv(key_name)
+      return value
   
   
   
