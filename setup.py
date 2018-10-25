@@ -10,7 +10,7 @@ def read(fname):
 
 setup(
   name = "doppler-client",
-  version = "0.0.16",
+  version = "0.0.17",
   author = "Doppler Team",
   author_email = "support@doppler.market",
   description = "Official Doppler client for Python",
@@ -22,7 +22,8 @@ setup(
   packages=find_packages(exclude=["tests", "templates", "experiments"]),
   install_requires=[
     "requests",
-    "requests-futures"
+    "requests-futures",
+    "enum34"
   ],
   classifiers=[
     "Development Status :: 3 - Alpha",
