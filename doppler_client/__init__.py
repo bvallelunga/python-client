@@ -11,10 +11,10 @@ except NameError:
 
 
 class Doppler:
-  
+
   class Priority(Enum):
     Local = 1
-    Remote = 2 
+    Remote = 2
   
   host = os.getenv('DOPPLER_HOST', "https://api.doppler.market")
   max_retries = 10
@@ -68,7 +68,7 @@ class Doppler:
       
       if priority == Doppler.Priority.Local:
         value = os.getenv(key_name, self.remote_keys.get(key_name))
-      else: 
+      else:
         value = self.remote_keys.get(key_name, os.getenv(key_name))
       
       if key_name not in self.ignore_keys:
@@ -128,7 +128,7 @@ class Doppler:
     except requests.exceptions.RequestException:
       retry_count += 1
       
-      if retry_count > self.max_retries: 
+      if retry_count > self.max_retries:
         print("DOPPLER: Failed to reach Doppler servers after " + retry_count + " retries...\n")
         return None
       

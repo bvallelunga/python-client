@@ -8,6 +8,7 @@ applications written for **only** server-side code.
 ## Installation
 
 Install the package with:
+
 ``` bash
 pip install -U doppler-client
 ```
@@ -29,14 +30,12 @@ doppler = Doppler({
 # Rest of Application
 ```
 
-
 ## Key Best Practices
 
 So if Doppler stores my environment keys, where should I keep my Doppler API keys?
 
 That is a great question! We recommend storing your `API_KEY`, `PIPELINE_ID`, and `ENVIRONMENT_NAME` 
 in local environment. That means the only keys you should be storing in your local environment are the Doppler keys. All other keys should be be fetched by the Doppler client.
-
 
 ### Fetch Environment Keys
 
@@ -55,7 +54,6 @@ config = {
 }
 
 ```
-
 
 If there are differences between the values your local environment sets and the ones on Doppler, the client will use the ones provided by Doppler. You can override this behavior by passing in a second argument to the `get(key_name, priority)` method that sets the priority to favor your local environment.
 
@@ -88,7 +86,6 @@ doppler = Doppler({
 
 ```
 
-
 ## Local Key Privacy
 
 By default the Doppler client will only track the local environment keys that are used during `doppler.get()`.
@@ -111,7 +108,6 @@ doppler = Doppler({
 })
 ```
 
-
 ### Ignoring Specific Keys
 Inversely, you can also ignore specific local keys by adding them to the `ignore_keys` array.
 
@@ -125,7 +121,6 @@ doppler = Doppler({
   ]
 })
 ```
-
 
 ## Overriding Local Keys
 
@@ -146,7 +141,6 @@ doppler = Doppler({
 })
 ```
 
-
 ### Individual Key
 You can also override specific local keys by setting `override_local_keys` to be an array of keys.
 
@@ -162,9 +156,7 @@ doppler = Doppler({
 })
 ```
 
-
 ## Extra Information
 
 - [Doppler](https://doppler.market)
 - [API KEY](https://doppler.market/workplace/api_key)
-

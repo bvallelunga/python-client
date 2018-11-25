@@ -8,8 +8,8 @@ PIPELINE = os.getenv("DOPPLER_PIPELINE_ID", "31")
 ENVIRONMENT = os.getenv("DOPPLER_ENVIRONMENT", "development_python")
 
 doppler = Doppler({
-  "api_key": API_KEY, 
-  "pipeline": PIPELINE, 
+  "api_key": API_KEY,
+  "pipeline": PIPELINE,
   "environment": ENVIRONMENT,
   "priority": Doppler.Priority.Remote
 })
