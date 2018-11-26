@@ -3,12 +3,14 @@ from requests_futures.sessions import FuturesSession
 import json
 import os
 from enum import Enum
+import pkg_resources
+
 
 try:
   set
 except NameError:
   from sets import Set as set
-
+  
 
 class Doppler:
 
@@ -113,7 +115,9 @@ class Doppler:
       
       response = requester.post(endpoint, json=body, headers={
         "api-key": self.api_key,
-        "pipeline": self.pipeline
+        "pipeline": self.pipeline,
+        "client-sdk": "python",
+        "client-version": pkg_resources.require("doppler-client")[0].version
       }, timeout=1500)
       
       if response is None or isAsync: return None
