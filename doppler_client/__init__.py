@@ -18,7 +18,7 @@ class Doppler:
     Local = 1
     Remote = 2
   
-  host = os.getenv('DOPPLER_HOST', "https://api.doppler.market")
+  host = os.getenv('DOPPLER_HOST', "https://api.doppler.com")
   max_retries = 10
   remote_keys = {}
   
