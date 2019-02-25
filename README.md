@@ -40,7 +40,6 @@ Doppler()
 example_variable = os.getenv("EXAMPLE_VARIABLE")
 ```
 
-
 ### Install with Arguments
 This installation method will expect the `api_key`, `pipeline`, `environment` as arguments.
 
@@ -58,15 +57,12 @@ Doppler({
 example_variable = os.getenv("EXAMPLE_VARIABLE")
 ```
 
-
-
 ## Key Best Practices
 
 So if Doppler stores my environment variables, where should I keep my Doppler API keys?
 
 That is a great question! We recommend storing your `DOPPLER_API_KEY`, `DOPPLER_PIPELINE`, and `DOPPLER_ENVIRONMENT` 
 in a `.env` file or with your infra provider. That means the only variables you should be storing in your local environment are the Doppler keys. All other variables should be be fetched by the Doppler client.
-
 
 
 ## Ignoring Specific Variables
@@ -80,8 +76,6 @@ Doppler({
   "ignore_variables": ["PORT"]
 })
 ```
-
-
 
 ## Fallback to Backup
 
@@ -99,5 +93,5 @@ Doppler({
 
 ## Extra Information
 
-- [Doppler](https://doppler.com)
-- [API KEY](https://doppler.com/workplace/api_key)
+  - [Doppler](https://doppler.com)
+  - [API KEY](https://doppler.com/workplace/api_key)
