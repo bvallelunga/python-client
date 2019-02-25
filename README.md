@@ -69,7 +69,7 @@ in a `.env` file or with your infra provider. That means the only variables you 
 
 In the case you would want to ignore specific variables from Doppler, say a port set by Heroku, you can add it the `ignore_variables` field.
 
-``` js
+``` python
 from doppler_client import Doppler
 
 Doppler({
@@ -83,7 +83,7 @@ The Doppler client accepts a `backup_filepath` on init. If provided the client w
 the Doppler variables to a backup file. If the Doppler client fails to connect to our API
 endpoint (very unlikely), the client will fallback to the keys provided in the backup file.
 
-``` js
+``` python
 from doppler_client import Doppler
 
 Doppler({
