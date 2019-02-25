@@ -10,20 +10,20 @@ try:
   set
 except NameError:
   from sets import Set as set
-  
 
+
+# Doppler Class
 class Doppler:
-
-  class Priority(Enum):
-    Local = 1
-    Remote = 2
   
   host = os.getenv('DOPPLER_HOST', "https://api.doppler.com")
   max_retries = 10
   remote_keys = {}
   
   
-  def __init__(self, data):
+  def __init__(self, data={}):
+    data["api_key"] = data.get("api_key", os.getenv("DOPPLER_API_KEY"))
+    data["pipeline"] = data.get("pipeline", os.getenv("DOPPLER_PIPELINE"))
+    data["environment"] = data.get("environment", os.getenv("DOPPLER_ENVIRONMENT"))
     
     if data.get("api_key") is None:
       raise ValueError("Please provide an 'api_key' on initialization.")
@@ -37,72 +37,38 @@ class Doppler:
     self.api_key = str(data.get("api_key"))
     self.pipeline = str(data.get("pipeline"))
     self.environment = str(data.get("environment"))
-    self.defaultPriority = data.get("priority", Doppler.Priority.Remote)
-    self.track_keys = set(data.get("track_keys", []))
-    self.ignore_keys = set(data.get("ignore_keys", []))
-    self.override_local_keys = data.get("override_local_keys", False)
+    self.ignore_variables = set(data.get("ignore_variables", []))
+    self.backup_filepath = data.get("backup_filepath")
     self.startup()
   
   
   
   def startup(self):
-    local_keys = {}
-      
-    for key in os.environ:
-      value = os.environ[key]
-      
-      if key in self.track_keys:
-        local_keys[key] = value
-    
-    response = self._request("/fetch_keys", {
-      "local_keys": local_keys
-    })
+    response = self._request("/fetch_keys", {})
     
     if response:
       self.remote_keys = response["keys"]
       self.override_keys()
+      self.write_backup()
       
-
-      
-  def get(self, key_name, priority=None):
-      priority = priority or self.defaultPriority
-      value = None
-      
-      if priority == Doppler.Priority.Local:
-        value = os.getenv(key_name, self.remote_keys.get(key_name))
-      else:
-        value = self.remote_keys.get(key_name, os.getenv(key_name))
-      
-      if key_name not in self.ignore_keys:
-        if value is not None:
-          if self.remote_keys.get(key_name) != os.getenv(key_name):
-            local_keys = {}
-            local_keys[key_name] = os.getenv(key_name)
-          
-            self._request("/track_key", {
-              "local_keys": local_keys
-            }, isAsync=True)
-      
-        else:
-          self._request("/missing_key", {
-            "key_name": key_name
-          }, isAsync=True)
-      
-      return value
   
-  
-  
-  def override_keys(self):
-    if self.override_local_keys == False: return
+  def override_keys(self):    
+    for key in self.remote_keys:
+      if key not in self.ignore_variables:
+        os.environ[key] = self.remote_keys.get(key)
+        
+        
+  def write_backup(self):
+    if not self.backup_filepath: return
     
-    override_keys = self.override_local_keys
+    body = ""
     
-    if override_keys == True:
-      override_keys = self.remote_keys.keys()
+    for key in self.remote_keys:
+      body += key + "=" + self.remote_keys.get(key) + "\n"
     
-    for key_name in override_keys:
-      if key_name in self.remote_keys:
-        os.environ[key_name] = self.remote_keys.get(key_name)
+    f = open(self.backup_filepath, "w")
+    f.write(body)
+    f.close()
   
   
   def _request(self, endpoint, body, retry_count=0, isAsync=False):
@@ -133,6 +99,19 @@ class Doppler:
       retry_count += 1
       
       if retry_count > self.max_retries:
+        if self.backup_filepath is not None and os.path.isfile(self.backup_filepath):
+          f = open(self.backup_filepath, "r")
+          body = f.read()
+          
+          keys = {}
+          for line in body.split("\n"):
+            parts = line.split("=")        
+            
+            if len(parts) == 2: 
+              keys[parts[0]] = parts[1]
+            
+          return { "keys": keys }
+      
         print("DOPPLER: Failed to reach Doppler servers after " + retry_count + " retries...\n")
         return None
       
