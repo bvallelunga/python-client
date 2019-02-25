@@ -93,5 +93,5 @@ Doppler({
 
 ## Extra Information
 
-  - [Doppler](https://doppler.com)
-  - [API KEY](https://doppler.com/workplace/api_key)
+- [Doppler](https://doppler.com)
+- [API KEY](https://doppler.com/workplace/api_key)
