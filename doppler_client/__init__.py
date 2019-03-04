@@ -97,7 +97,7 @@ class Doppler:
       
     except requests.exceptions.RequestException:
       retry_count += 1
-      
+
       if retry_count > self.max_retries:
         if self.backup_filepath is not None and os.path.isfile(self.backup_filepath):
           f = open(self.backup_filepath, "r")
@@ -109,7 +109,7 @@ class Doppler:
             
             if len(parts) == 2:
               keys[parts[0]] = parts[1]
-            
+
           return { "keys": keys }
 
         print("DOPPLER: Failed to reach Doppler servers after " + retry_count + " retries...\n")
