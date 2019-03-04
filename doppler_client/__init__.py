@@ -52,7 +52,7 @@ class Doppler:
       self.write_backup()
       
   
-  def override_keys(self):    
+  def override_keys(self):
     for key in self.remote_keys:
       if key not in self.ignore_variables:
         os.environ[key] = self.remote_keys.get(key)
@@ -105,14 +105,14 @@ class Doppler:
           
           keys = {}
           for line in body.split("\n"):
-            parts = line.split("=")        
+            parts = line.split("=")
             
-            if len(parts) == 2: 
+            if len(parts) == 2:
               keys[parts[0]] = parts[1]
             
           return { "keys": keys }
       
         print("DOPPLER: Failed to reach Doppler servers after " + retry_count + " retries...\n")
         return None
-      
+
       return self._request(endpoint, body, retry_count)
