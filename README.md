@@ -1,5 +1,7 @@
 # Doppler Python Library
 
+
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/DopplerHQ/python-client)
 [![image](https://img.shields.io/pypi/v/doppler-client.svg)](https://pypi.org/project/doppler-client)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fce9d6dc0162463aa8142efd0a1c0d5d)](https://www.codacy.com/app/Doppler/python-client?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DopplerHQ/python-client&amp;utm_campaign=Badge_Grade)
 
