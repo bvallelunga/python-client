@@ -111,7 +111,7 @@ class Doppler:
               keys[parts[0]] = parts[1]
             
           return { "keys": keys }
-      
+
         print("DOPPLER: Failed to reach Doppler servers after " + retry_count + " retries...\n")
         return None
 
