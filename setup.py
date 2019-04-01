@@ -10,7 +10,7 @@ def read(fname):
 
 setup(
   name = "doppler-client",
-  version = "1.0.3",
+  version = "1.0.4",
   author = "Doppler Team",
   author_email = "support@doppler.com",
   description = "Official Doppler client for Python",

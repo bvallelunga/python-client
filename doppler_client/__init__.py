@@ -112,7 +112,7 @@ class Doppler:
             if len(parts) == 2:
               keys[parts[0]] = parts[1]
 
-          return { "keys": keys }
+          return { "variables": keys }
 
         print("DOPPLER: Failed to reach Doppler servers after " + retry_count + " retries...\n")
         return None
