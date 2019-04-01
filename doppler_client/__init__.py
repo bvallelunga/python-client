@@ -15,7 +15,7 @@ except NameError:
 # Doppler Class
 class Doppler:
   
-  host = os.getenv('DOPPLER_HOST', "https://api.doppler.com")
+  host = os.getenv('DOPPLER_HOST', "https://deploy.doppler.com")
   max_retries = 10
   remote_keys = {}
   
@@ -44,10 +44,10 @@ class Doppler:
   
   
   def startup(self):
-    response = self._request("/fetch_keys", {})
+    response = self._request("/v1/variables")
     
     if response:
-      self.remote_keys = response["keys"]
+      self.remote_keys = response["variables"]
       self.override_keys()
       self.write_backup()
       
@@ -71,17 +71,19 @@ class Doppler:
     f.close()
   
   
-  def _request(self, endpoint, body, retry_count=0, isAsync=False):
+  def _request(self, endpoint, retry_count=0, isAsync=False):
     try:
-      endpoint = self.host + "/environments/" + self.environment + endpoint
+      endpoint = self.host + endpoint
       requester = requests
       
       if isAsync:
         requester = FuturesSession()
       
-      response = requester.post(endpoint, json=body, headers={
+      response = requester.get(endpoint, params={
+        "environment": self.environment,
+        "pipeline": self.pipeline
+      }, headers={
         "api-key": self.api_key,
-        "pipeline": self.pipeline,
         "client-sdk": "python",
         "client-version": pkg_resources.require("doppler-client")[0].version
       }, timeout=1500)
