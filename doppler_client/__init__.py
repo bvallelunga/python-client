@@ -117,4 +117,4 @@ class Doppler:
         print("DOPPLER: Failed to reach Doppler servers after " + retry_count + " retries...\n")
         return None
 
-      return self._request(endpoint, body, retry_count)
+      return self._request(endpoint, retry_count, isAsync)
