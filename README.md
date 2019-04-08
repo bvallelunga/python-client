@@ -50,7 +50,7 @@ Doppler()
 example_variable = os.getenv("EXAMPLE_VARIABLE")
 ```
 
-### Install with env file
+### Install with ENV File
 This installation method will expect the `DOPPLER_API_KEY`, `DOPPLER_PIPELINE`, `DOPPLER_ENVIRONMENT` in a `.env` file.
 
 ``` python
