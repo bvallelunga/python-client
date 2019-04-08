@@ -21,9 +21,10 @@ class Doppler:
   
   
   def __init__(self, data={}):
-    data["api_key"] = data.get("api_key", os.getenv("DOPPLER_API_KEY"))
-    data["pipeline"] = data.get("pipeline", os.getenv("DOPPLER_PIPELINE"))
-    data["environment"] = data.get("environment", os.getenv("DOPPLER_ENVIRONMENT"))
+    env = self.read_env(data.get("env_filepath", ".env")) or {}
+    data["api_key"] = data.get("api_key", os.getenv("DOPPLER_API_KEY", env.get("DOPPLER_API_KEY")))
+    data["pipeline"] = data.get("pipeline", os.getenv("DOPPLER_PIPELINE", env.get("DOPPLER_PIPELINE")))
+    data["environment"] = data.get("environment", os.getenv("DOPPLER_ENVIRONMENT", env.get("DOPPLER_ENVIRONMENT")))
     
     if data.get("api_key") is None:
       raise ValueError("Please provide an 'api_key' on initialization.")
@@ -69,6 +70,23 @@ class Doppler:
     f = open(self.backup_filepath, "w")
     f.write(body)
     f.close()
+    
+  
+  def read_env(self, path):
+    if path is None or not os.path.isfile(path):
+      return None
+
+    f = open(path, "r")
+    body = f.read()
+    
+    keys = {}
+    for line in body.split("\n"):
+      parts = line.split("=")
+      
+      if len(parts) == 2:
+        keys[parts[0].strip()] = parts[1].strip()
+
+    return keys
   
   
   def _request(self, endpoint, retry_count=0, isAsync=False):
@@ -101,18 +119,10 @@ class Doppler:
       retry_count += 1
 
       if retry_count > self.max_retries:
-        if self.backup_filepath is not None and os.path.isfile(self.backup_filepath):
-          f = open(self.backup_filepath, "r")
-          body = f.read()
-          
-          keys = {}
-          for line in body.split("\n"):
-            parts = line.split("=")
-            
-            if len(parts) == 2:
-              keys[parts[0]] = parts[1]
-
-          return { "variables": keys }
+        backup_env = self.read_env(self.backup_filepath)
+        
+        if backup_env is not None:
+          return { "variables": backup_env }
 
         print("DOPPLER: Failed to reach Doppler servers after " + retry_count + " retries...\n")
         return None
