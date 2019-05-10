@@ -5,6 +5,8 @@ os.environ["DOPPLER_ENVIRONMENT"] = "development_python"
 
 
 from doppler_client import Doppler
-Doppler()
 
+doppler = Doppler()
+
+print(doppler.get("TESTER"))
 print(os.getenv("TESTER"))

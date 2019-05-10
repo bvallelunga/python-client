@@ -89,6 +89,22 @@ That is a great question! We recommend storing your `DOPPLER_API_KEY`, `DOPPLER_
 in a `.env` file or with your infra provider. That means the only variables you should be storing in your local environment are the Doppler keys. All other variables should be be fetched by the Doppler client.
 
 
+### Disable Overriding Environment Variables
+If you would like to disable overriding environment variables, use this follow field.
+
+``` python
+from doppler_client import Doppler
+
+doppler = Doppler({
+  "override": False
+})
+
+
+# Rest of Your Application
+example_variable = doppler.get("EXAMPLE_VARIABLE")
+```
+
+
 ## Ignoring Specific Variables
 
 In the case you would want to ignore specific variables from Doppler, say a port set by Heroku, you can add it the `ignore_variables` field.

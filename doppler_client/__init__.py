@@ -40,6 +40,7 @@ class Doppler:
     self.environment = str(data.get("environment"))
     self.ignore_variables = set(data.get("ignore_variables", []))
     self.backup_filepath = data.get("backup_filepath")
+    self.override = data.get("override", True)
     self.startup()
   
   
@@ -49,8 +50,10 @@ class Doppler:
     
     if response:
       self.remote_keys = response["variables"]
-      self.override_keys()
       self.write_backup()
+      
+      if self.override:
+        self.override_keys()
       
   
   def override_keys(self):
@@ -65,7 +68,7 @@ class Doppler:
     body = ""
     
     for key in self.remote_keys:
-      body += key + "=" + self.remote_keys.get(key) + "\n"
+      body += key + "=\"" + self.remote_keys.get(key) + "\"\n"
     
     f = open(self.backup_filepath, "w")
     f.write(body)
@@ -87,6 +90,10 @@ class Doppler:
         keys[parts[0].strip()] = parts[1].strip()
 
     return keys
+ 
+  
+  def get(self, name):
+    return self.remote_keys.get(name)
   
   
   def _request(self, endpoint, retry_count=0, isAsync=False):
