@@ -94,6 +94,10 @@ class Doppler:
   
   def get(self, name):
     return self.remote_keys.get(name)
+    
+    
+  def get_all(self):
+    return self.remote_keys
   
   
   def _request(self, endpoint, retry_count=0, isAsync=False):
