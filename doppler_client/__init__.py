@@ -135,7 +135,7 @@ class Doppler:
         if backup_env is not None:
           return { "variables": backup_env }
 
-        print("DOPPLER: Failed to reach Doppler servers after " + retry_count + " retries...\n")
+        raise ValueError("DOPPLER: Failed to reach Doppler servers after " + retry_count + " retries...\n")
         return None
 
       return self._request(endpoint, retry_count, isAsync)
