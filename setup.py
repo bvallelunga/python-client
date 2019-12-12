@@ -10,7 +10,7 @@ def read(fname):
 
 setup(
   name = "doppler-client",
-  version = "1.0.8",
+  version = "1.0.9",
   author = "Doppler Team",
   author_email = "support@doppler.com",
   description = "Official Doppler client for Python",
@@ -26,7 +26,7 @@ setup(
     "enum34"
   ],
   classifiers=[
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 7 - Inactive",
     "Topic :: Utilities",
     "License :: OSI Approved :: Apache Software License"
   ],
