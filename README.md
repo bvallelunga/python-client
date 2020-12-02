@@ -1,7 +1,6 @@
-# DEPRECATED
-The new Doppler CLI is exceptionally light and fast, and is provided as a binary to support environments without `python`.
-Migrate today by visiting our [installation documentation](https://docs.doppler.com/docs/enclave-installation).
+# DEPRECATED AND SCHEDULED FOR REMOVAL FROM PYPI JANUARY 15, 2021
 
+The [doppler-client](https://pypi.org/project/doppler-client/) package is deprecated and **scheduled for removal from PyPI** on January 15, 2021. Learn how to [migrate to the new CLI](https://docs.doppler.com/docs/saying-goodbye-to-the-doppler-client-packages-node-cli).
 
 # Doppler Python Library
 
